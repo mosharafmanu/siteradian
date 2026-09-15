@@ -9,10 +9,10 @@ export type DocPage = {
 
 export const docs: DocPage[] = [
   {
-    slug: 'getting-started', title: 'Getting started', category: 'Start here', updated: '2026-09-14',
+    slug: 'getting-started', title: 'Getting started', category: 'Start here', updated: '2026-09-15',
     description: 'Install SiteRadian, connect an assistant, and complete a safe first read in ten clear steps.',
     sections: [
-      { title: 'Before you begin', body: `<p>You need a single-site WordPress installation running WordPress 6.4 or newer and PHP 8.0 or newer. Your chosen assistant must be able to reach the site over HTTPS. Claude Desktop and Continue also need Node.js on the computer running the assistant; direct-HTTP clients do not.</p>` },
+      { title: 'Before you begin', body: `<p>You need a single-site WordPress installation running WordPress 6.4 or newer and PHP 8.0 or newer. WordPress Admin access is enough to begin when your account can install and activate plugins and perform the WordPress actions you intend to govern. The normal setup does not require SSH, FTP, SFTP, or a hosting panel.</p><p>Your chosen assistant must be able to reach the site over HTTPS. Claude Desktop and Continue also need Node.js on the computer running the assistant; direct-HTTP clients do not.</p>` },
       { title: '1. Install SiteRadian', body: `<p>In WordPress, open <strong>Plugins → Add New → Upload Plugin</strong>, choose <code>siteradian-1.0.0.zip</code>, install, and activate it. During WordPress.org review, use only the verified package supplied by the project owner.</p>` },
       { title: '2. Open the command center', body: `<p>Select <strong>SiteRadian</strong> in the WordPress admin sidebar. Home shows the current protection mode, connections, pending approvals, recent changes, and the one setup step that needs attention.</p>` },
       { title: '3. Create access', body: `<p>Open <strong>Settings → Connections → Tokens</strong>. Choose a descriptive label, start with <strong>Read-only</strong>, set an expiry, and create the token. The full credential is shown once. Copy it before leaving the screen.</p>` },
@@ -26,11 +26,11 @@ export const docs: DocPage[] = [
     ],
   },
   {
-    slug: 'installation', title: 'Installation', category: 'Start here', updated: '2026-09-14',
+    slug: 'installation', title: 'Installation', category: 'Start here', updated: '2026-09-15',
     description: 'Requirements, activation behavior, upgrades, deactivation, and data-retention choices.',
     sections: [
-      { title: 'Requirements', body: `<ul><li>WordPress 6.4 or newer; tested through WordPress 7.1.</li><li>PHP 8.0 or newer.</li><li>A single WordPress site. Network activation is intentionally refused in 1.0.0.</li><li>Public HTTPS reachability for remote assistant clients.</li></ul>` },
-      { title: 'Install and activate', body: `<ol><li>Open <strong>Plugins → Add New → Upload Plugin</strong>.</li><li>Select <code>siteradian-1.0.0.zip</code>.</li><li>Choose <strong>Install Now</strong>, then <strong>Activate</strong>.</li><li>Open <strong>SiteRadian → Home</strong>.</li></ol><p>Activation creates the plugin tables, starts the queue worker, protects its upload directories, and sets Standard protection. It does not contact an AI provider or enable automatic site changes.</p>` },
+      { title: 'Requirements', body: `<ul><li>WordPress 6.4 or newer; tested through WordPress 7.1.</li><li>PHP 8.0 or newer.</li><li>A single WordPress site. Network activation is intentionally refused in 1.0.0.</li><li>A WordPress account allowed to install and activate plugins.</li><li>Public HTTPS reachability for remote assistant clients.</li></ul>` },
+      { title: 'Install and activate from WordPress Admin', body: `<ol><li>Open <strong>Plugins → Add New → Upload Plugin</strong>.</li><li>Select <code>siteradian-1.0.0.zip</code>.</li><li>Choose <strong>Install Now</strong>, then <strong>Activate</strong>.</li><li>Open <strong>SiteRadian → Home</strong>.</li><li>Create scoped access and connect your assistant.</li></ol><p>This normal path does not require SSH, FTP, SFTP, or a hosting panel. If your account cannot install plugins, ask a site administrator or host to install SiteRadian. Activation creates the plugin tables, starts the queue worker, protects its upload directories, and sets Standard protection. It does not contact an AI provider or enable automatic site changes.</p>` },
       { title: 'Upgrade and deactivate', body: `<p>Uploading a later package over an existing installation migrates its schema in place and preserves tokens, approvals, and history. Deactivation stops the worker and the REST/MCP surface but does not delete data.</p>` },
       { title: 'Uninstall and retention', body: `<p>SiteRadian keeps its records by default so an accidental removal does not destroy the audit trail. If you explicitly enable “Also delete all SiteRadian data when the plugin is deleted” under Protection before uninstalling, plugin tables, options, and protected storage are removed.</p>` },
     ],

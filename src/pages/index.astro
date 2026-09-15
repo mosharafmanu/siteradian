@@ -72,7 +72,28 @@ const schema = {
     </div>
   </section>
 
-  <section class="section soft">
+  <section class="section soft admin-access-section" aria-labelledby="admin-access-heading">
+    <div class="container admin-access-grid">
+      <div class="admin-access-copy">
+        <p class="eyebrow">When wp-admin is the access you have</p>
+        <h2 id="admin-access-heading">No SSH? No SFTP?<br />You can still get serious work done.</h2>
+        <p>Client sites do not always come with server credentials. If WordPress Admin is the access you have, SiteRadian gives supported AI assistants a governed path to inspect, diagnose, and perform supported site operations through WordPress itself.</p>
+        <p class="admin-access-limit">It is an alternative path for supported WordPress operations—not a replacement for server access.</p>
+        <a class="text-link" href={withBase('/use-cases/wordpress-admin-only/')}>Explore the admin-only workflow</a>
+      </div>
+      <div class="access-path-card" aria-label="WordPress Admin access through SiteRadian">
+        <div class="access-unavailable"><span>Direct infrastructure access</span><strong>SSH · SFTP · Hosting panel</strong><small>May be unavailable—or unnecessary for this work</small></div>
+        <div class="access-divider"><span>Use the access you have</span></div>
+        <ol class="access-path">
+          <li><span>01</span><div><strong>WordPress Admin</strong><small>Install and activate with the required capability</small></div></li>
+          <li><span>02</span><div><strong>SiteRadian</strong><small>Define scope, capabilities, and approval</small></div></li>
+          <li><span>03</span><div><strong>Governed operations</strong><small>Inspect, execute supported work, and record outcomes</small></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="container split">
       <div>
         <p class="eyebrow">Why governance matters</p>
@@ -124,7 +145,7 @@ const schema = {
   <section class="section soft">
     <div class="container">
       <div class="section-header"><div><p class="eyebrow">Built for responsible operators</p><h2>Useful from the first site to the next workflow.</h2></div></div>
-      <div class="audience-grid"><article class="audience-card"><h3>Site owners</h3><p>Get help inspecting and maintaining WordPress without handing an assistant unlimited authority.</p></article><article class="audience-card"><h3>Agencies</h3><p>Use repeatable access and approval boundaries while preserving a clear record for each site.</p></article><article class="audience-card"><h3>Technical teams</h3><p>Expose a discoverable operations surface to agents while keeping WordPress governance in the loop.</p></article></div>
+      <div class="audience-grid audience-grid-four"><article class="audience-card"><h3>Freelancers</h3><p>Work on supported site operations when a client provides WordPress Admin but no server credentials.</p></article><article class="audience-card"><h3>Agencies</h3><p>Use defined access across client sites without distributing unnecessary infrastructure credentials.</p></article><article class="audience-card"><h3>Site owners</h3><p>Use the assistant you already have without needing to learn SSH for supported WordPress work.</p></article><article class="audience-card"><h3>Support teams</h3><p>Inspect and perform supported operations through a controlled, auditable WordPress path.</p></article></div>
     </div>
   </section>
 

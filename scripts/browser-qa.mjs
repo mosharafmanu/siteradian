@@ -34,6 +34,8 @@ for (const width of widths) {
   }
   if (await page.locator('.logo-chip').count() !== 12) problems.push(`${width}px home: expected 12 assistant links`);
   if (width > 900 && !(await page.getByRole('link', { name: 'Support', exact: true }).first().isVisible())) problems.push(`${width}px home: Support navigation is hidden`);
+  if (!(await page.getByRole('heading', { name: /No SSH\? No SFTP\?/ }).isVisible())) problems.push(`${width}px home: admin-only positioning is not discoverable`);
+  if (!(await page.getByText('It is an alternative path for supported WordPress operations—not a replacement for server access.').isVisible())) problems.push(`${width}px home: server-access boundary is missing`);
 
   if (width <= 900) {
     const menuButton = page.getByRole('button', { name: 'Open navigation' });
@@ -43,6 +45,23 @@ for (const width of widths) {
     await page.keyboard.press('Escape');
     if (await menuButton.getAttribute('aria-expanded') !== 'false') problems.push(`${width}px: Escape did not close navigation`);
   }
+
+  await page.goto(`${baseUrl}/how-it-works/`, { waitUntil: 'networkidle' });
+  await auditPage(page, `${width}px how it works`);
+  if (!(await page.getByRole('heading', { name: 'A governed path when server access is not available.' }).isVisible())) problems.push(`${width}px how it works: admin-only architecture missing`);
+
+  await page.goto(`${baseUrl}/use-cases/wordpress-admin-only/`, { waitUntil: 'networkidle' });
+  await auditPage(page, `${width}px admin-only use case`);
+  if (!(await page.getByRole('heading', { name: 'Serious WordPress work with the access you already have.' }).isVisible())) problems.push(`${width}px use case: primary message missing`);
+  if (!(await page.getByRole('heading', { name: 'Server work remains server work.' }).isVisible())) problems.push(`${width}px use case: limitations are not visible`);
+
+  await page.goto(`${baseUrl}/faq/`, { waitUntil: 'networkidle' });
+  await auditPage(page, `${width}px FAQ`);
+  if (!(await page.getByText('Does SiteRadian require SSH, FTP, or SFTP?').isVisible())) problems.push(`${width}px FAQ: access requirement question missing`);
+
+  await page.goto(`${baseUrl}/security/`, { waitUntil: 'networkidle' });
+  await auditPage(page, `${width}px security`);
+  if (!(await page.getByRole('heading', { name: 'Avoid sharing server credentials when the work does not need them.' }).isVisible())) problems.push(`${width}px security: least-access positioning missing`);
 
   await page.goto(`${baseUrl}/integrations/`, { waitUntil: 'networkidle' });
   await auditPage(page, `${width}px integrations`);
@@ -106,6 +125,18 @@ else {
     await page.waitForFunction(() => document.querySelectorAll('.pagefind-ui__result').length > 0, undefined, { timeout: 10000 }).catch(() => {});
     if (await page.locator('.pagefind-ui__result').count() === 0) problems.push(`search: no results for ${query}`);
   }
+  for (const query of ['SSH', 'SFTP', 'FTP', 'no SSH', 'WordPress Admin access', 'server access']) {
+    await search.fill(query);
+    await page.waitForFunction(() => [...document.querySelectorAll('.pagefind-ui__result-link')].some(link =>
+      /use-cases\/wordpress-admin-only|\/faq\/|docs\/(?:getting-started|installation)\//.test(link.getAttribute('href') || '')
+    ), undefined, { timeout: 10000 }).catch(() => {});
+    const useful = await page.locator('.pagefind-ui__result-link').evaluateAll(links => links.some(link =>
+      /use-cases\/wordpress-admin-only|\/faq\/|docs\/(?:getting-started|installation)\//.test(link.getAttribute('href') || '')
+    ));
+    if (!useful) {
+      problems.push(`search: no useful admin-only result for ${query}`);
+    }
+  }
 }
 await page.goto(`${baseUrl}/404.html`, { waitUntil: 'networkidle' });
 if ((await page.locator('main h1').innerText()).trim() !== 'This page is not in scope.') problems.push('404: branded error page missing');
@@ -120,4 +151,4 @@ console.log(`Browser QA passed at ${widths.join(', ')}px.`);
 console.log('Horizontal overflow: 0');
 console.log('Console/page errors: 0');
 console.log('Failed assets/HTTP responses: 0');
-console.log('Mobile navigation, docs navigation, support routing, code copy, support/compatibility search, 404, and all 12 integrations: PASS');
+console.log('Mobile navigation, admin-only positioning, docs navigation, support routing, code copy, search intents, 404, and all 12 integrations: PASS');
