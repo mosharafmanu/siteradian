@@ -74,7 +74,7 @@ const search = page.locator('.pagefind-ui__search-input');
 if (!(await search.isVisible())) problems.push('search: Pagefind input is not visible');
 else {
   await search.fill('approval');
-  await page.waitForTimeout(500);
+  await page.locator('.pagefind-ui__result').first().waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
   if (await page.locator('.pagefind-ui__result').count() === 0) problems.push('search: no results for approval');
 }
 await page.goto(`${baseUrl}/404.html`, { waitUntil: 'networkidle' });
