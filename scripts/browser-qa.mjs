@@ -76,6 +76,14 @@ else {
   await search.fill('approval');
   await page.locator('.pagefind-ui__result').first().waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
   if (await page.locator('.pagefind-ui__result').count() === 0) problems.push('search: no results for approval');
+  await search.fill('wpcc_token_read_only');
+  await page.waitForFunction(() =>
+    [...document.querySelectorAll('.pagefind-ui__result-link')].some(link => link.textContent?.includes('Scoped access')),
+    undefined,
+    { timeout: 10000 },
+  ).catch(() => {});
+  const technicalResults = await page.locator('.pagefind-ui__result-link').allTextContents();
+  if (!technicalResults.some(title => title.includes('Scoped access'))) problems.push('search: compatibility error code is not discoverable');
 }
 await page.goto(`${baseUrl}/404.html`, { waitUntil: 'networkidle' });
 if ((await page.locator('main h1').innerText()).trim() !== 'This page is not in scope.') problems.push('404: branded error page missing');
@@ -90,4 +98,4 @@ console.log(`Browser QA passed at ${widths.join(', ')}px.`);
 console.log('Horizontal overflow: 0');
 console.log('Console/page errors: 0');
 console.log('Failed assets/HTTP responses: 0');
-console.log('Mobile navigation, docs navigation, code copy, local search, 404, and all 12 integrations: PASS');
+console.log('Mobile navigation, docs navigation, code copy, public and compatibility-term search, 404, and all 12 integrations: PASS');

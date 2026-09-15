@@ -31,10 +31,11 @@ Production verification:
 ~~~bash
 npm run build
 npm run verify
+npm run audit:terminology
 npm run qa:browser
 ~~~
 
-The build creates static output in dist, then Pagefind creates a local search index. The verifier checks internal links, assets, metadata, route counts, WordPress.org status wording, private-path markers, and high-confidence secret patterns. Browser QA expects a local preview on port 4321 and uses an installed Chromium browser to test the required responsive widths.
+The build creates static output in dist, then Pagefind creates a local search index. The verifier checks internal links, assets, metadata, route counts, WordPress.org status wording, private-path markers, high-confidence secret patterns, and the explicit public-terminology allowlist. Browser QA expects a local preview on port 4321 and uses an installed Chromium browser to test the required responsive widths.
 
 ## Deployment
 
