@@ -30,36 +30,28 @@ body:
     validations:
       required: true
   - type: textarea
-    id: expected
+    id: behavior
     attributes:
-      label: Expected behavior
+      label: Expected and actual behavior
+      description: Explain what you expected first, then what happened instead.
+      placeholder: |
+        Expected: …
+        Actual: …
     validations:
       required: true
   - type: textarea
-    id: actual
+    id: environment
     attributes:
-      label: Actual behavior
+      label: Environment
+      description: Include the SiteRadian version and WordPress version. Add the PHP version, protection mode, and browser version when relevant.
+      placeholder: |
+        SiteRadian: 1.0.0
+        WordPress: 7.1
+        PHP (if known): 8.3
+        Protection mode (if relevant): Standard
+        Browser (for UI issues): Chrome 140
     validations:
       required: true
-  - type: input
-    id: siteradian-version
-    attributes:
-      label: SiteRadian version
-      placeholder: 1.0.0
-    validations:
-      required: true
-  - type: input
-    id: wordpress-version
-    attributes:
-      label: WordPress version
-      placeholder: 7.1
-    validations:
-      required: true
-  - type: input
-    id: php-version
-    attributes:
-      label: PHP version (if known)
-      placeholder: 8.3
   - type: dropdown
     id: integration
     attributes:
@@ -81,31 +73,12 @@ body:
         - Other / unsure
     validations:
       required: true
-  - type: dropdown
-    id: protection-mode
-    attributes:
-      label: Protection mode (if relevant)
-      options:
-        - Not relevant / unsure
-        - Standard
-        - Strict
-        - Development
-  - type: input
-    id: browser
-    attributes:
-      label: Browser and version (for UI issues)
-      placeholder: Chrome 140, Firefox 142, Safari 19, or not applicable
   - type: textarea
     id: diagnostics
     attributes:
-      label: Sanitized logs or error codes
-      description: Paste only the smallest relevant excerpt after removing secrets and private data.
+      label: Sanitized logs, error codes, and additional context
+      description: Paste only the smallest relevant excerpt after removing secrets and private data. Add any other context that materially helps reproduce the issue.
       render: shell
-  - type: textarea
-    id: context
-    attributes:
-      label: Additional context
-      description: Add anything else that materially helps reproduce the issue.
   - type: checkboxes
     id: safety
     attributes:

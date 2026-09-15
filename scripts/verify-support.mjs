@@ -19,7 +19,7 @@ for (const [path, contents] of Object.entries(forms)) {
   if (!contents.trim()) errors.push(`${path}: empty`);
 }
 const bug = forms[requiredForms[0]];
-for (const required of ['SiteRadian version', 'WordPress version', 'Affected integration', 'Protection mode', 'Sanitized logs or error codes', 'Sensitive-data check']) {
+for (const required of ['SiteRadian version', 'WordPress version', 'Affected integration', 'Protection mode', 'Sanitized logs, error codes, and additional context', 'Sensitive-data check']) {
   if (!bug.includes(required)) errors.push(`bug form missing ${required}`);
 }
 for (const client of ['Codex in ChatGPT Desktop', 'Codex CLI', 'Claude Desktop', 'Claude Code', 'Antigravity CLI', 'Gemini CLI', 'Cursor', 'Continue for VS Code', 'GitHub Copilot in VS Code', 'OpenCode', 'Command Code', 'Muse Code']) {
