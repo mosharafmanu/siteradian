@@ -107,7 +107,9 @@ const { integrations } = await import(new URL('../src/data/integrations.ts', imp
 if (integrations.length !== 12) errors.push(`expected 12 integration definitions, found ${integrations.length}`);
 for (const integration of integrations) {
   if (!integration.code.includes('siteradian')) errors.push(`${integration.slug}: SiteRadian-native alias/config key missing`);
-  if (!integration.code.includes('siteradian_REPLACE_WITH_YOUR_TOKEN')) errors.push(`${integration.slug}: current token placeholder missing`);
+  const currentCredential = integration.code.includes('siteradian_REPLACE_WITH_YOUR_TOKEN')
+    || (integration.slug === 'github-copilot' && integration.code.includes('siteradian-token-example') && integration.code.includes('"password":true'));
+  if (!currentCredential) errors.push(`${integration.slug}: current token placeholder or secure credential reference missing`);
   if (/WPCC_TOKEN|["']wp-command-center["']/.test(integration.code)) errors.push(`${integration.slug}: obsolete new-user setup identity`);
 }
 
