@@ -1,0 +1,10 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { docs, docCategories } from '@/data/docs';
+import { withBase } from '@/data/site';
+---
+<BaseLayout title="SiteRadian documentation — Safe AI operations for WordPress" description="Install SiteRadian, connect AI assistants to WordPress, create scoped access, manage approvals, review changes, and roll back supported work.">
+  <header class="page-hero"><div class="container narrow"><p class="eyebrow">Documentation</p><h1>Work safely from the first request.</h1><p class="lede">Clear, task-focused guidance for connecting assistants, choosing access, reviewing changes, and recovering when something does not look right.</p><div class="button-row"><a class="button" href={withBase('/docs/getting-started/')}>Start here</a><a class="button secondary" href={withBase('/search/')}>Search documentation</a></div></div></header>
+  <section class="section"><div class="container"><div class="section-header"><div><p class="eyebrow">Browse by task</p><h2>A direct path to the answer.</h2></div></div>{docCategories.map(category => <section style="margin-bottom:36px"><h3 style="font-size:20px;margin:0 0 13px">{category}</h3><div class="doc-index">{docs.filter(doc => doc.category === category).map(doc => <a href={withBase('/docs/' + doc.slug + '/')}><strong>{doc.title}</strong><span>{doc.description}</span></a>)}</div></section>)}</div></section>
+  <section class="section soft"><div class="container split"><div><p class="eyebrow">Client-specific setup</p><h2 class="content-heading">Configuration belongs to the client.</h2><p>Codex, Claude, Gemini, Cursor, Continue, Copilot, and other hosts do not all read the same format. Choose the exact tutorial for your application.</p><div class="button-row"><a class="button" href={withBase('/integrations/')}>Browse integrations</a></div></div><div class="boundary-card"><p class="eyebrow">Safe first prompt</p><h3>Inspect before changing.</h3><pre><code>Inspect my site and tell me what needs attention. Start with system information and do not change anything.</code></pre></div></div></section>
+</BaseLayout>

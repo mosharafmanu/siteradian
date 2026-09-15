@@ -1,0 +1,37 @@
+---
+import { siteConfig, withBase } from '@/data/site';
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <img src={withBase('/brand/siteradian-logo-dark.svg')} width="178" height="42" alt="SiteRadian" loading="lazy" />
+      <p>{siteConfig.descriptor}</p>
+      <span class="version">Version {siteConfig.version} · WordPress.org review pending</span>
+    </div>
+    <div>
+      <h2>Product</h2>
+      <a href={withBase('/how-it-works/')}>How it works</a>
+      <a href={withBase('/integrations/')}>Integrations</a>
+      <a href={withBase('/security/')}>Security</a>
+      <a href={withBase('/faq/')}>FAQ</a>
+    </div>
+    <div>
+      <h2>Documentation</h2>
+      <a href={withBase('/docs/getting-started/')}>Getting started</a>
+      <a href={withBase('/docs/access-tokens/')}>Access tokens</a>
+      <a href={withBase('/docs/approvals/')}>Approvals</a>
+      <a href={withBase('/docs/troubleshooting/')}>Troubleshooting</a>
+    </div>
+    <div>
+      <h2>Company</h2>
+      <a href={siteConfig.repository}>GitHub</a>
+      <a href={withBase('/privacy/')}>Privacy</a>
+      <a href={withBase('/terms/')}>Terms</a>
+      <a href={withBase('/attributions/')}>Attributions</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>Product names and logos belong to their respective owners. SiteRadian is not affiliated with or endorsed by those vendors.</p>
+    <p>© {new Date().getFullYear()} SiteRadian.</p>
+  </div>
+</footer>

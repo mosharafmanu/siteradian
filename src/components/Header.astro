@@ -1,0 +1,27 @@
+---
+import { primaryNav, siteConfig, withBase, wordpressCta } from '@/data/site';
+const current = Astro.url.pathname;
+const relativeCurrent = current.startsWith(siteConfig.base) ? current.slice(siteConfig.base.length) || '/' : current;
+const isCurrent = (href: string) => {
+  const relativeHref = href.startsWith(siteConfig.base) ? href.slice(siteConfig.base.length) : href;
+  const path = relativeHref.split('#')[0];
+  return path !== '/' && path !== '' && relativeCurrent.startsWith(path);
+};
+---
+<header class="site-header">
+  <div class="nav-wrap container">
+    <a class="brand" href={withBase('/')} aria-label="SiteRadian home">
+      <img src={withBase('/brand/siteradian-logo.svg')} width="190" height="45" alt="SiteRadian" />
+    </a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-button>
+      <span class="sr-only">Open navigation</span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </button>
+    <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation" data-menu>
+      <div class="nav-links">
+        {primaryNav.map(item => <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>)}
+        <a href={siteConfig.repository} target="_blank" rel="noreferrer">GitHub<span class="external" aria-hidden="true">↗</span></a>
+      </div>
+      <a class:list={['nav-cta', { pending: wordpressCta.disabled }]} href={wordpressCta.href} aria-label={wordpressCta.label}>{wordpressCta.label}</a>
+    </nav>
+  </div>
+</header>

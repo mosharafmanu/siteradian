@@ -1,0 +1,15 @@
+---
+import { integrations } from '@/data/integrations';
+import { withBase } from '@/data/site';
+interface Props { compact?: boolean; }
+const { compact = false } = Astro.props;
+---
+<div class:list={['integration-grid', { compact }]}>
+  {integrations.map(item => (
+    <a class="integration-card" href={withBase(`/integrations/${item.slug}/`)}>
+      <span class="integration-icon"><img src={withBase(`/integrations/${item.icon}`)} width="28" height="28" alt="" loading="lazy" /></span>
+      <span class="integration-info"><strong>{item.name}</strong><span>{item.type}</span></span>
+      <span class:list={['integration-status', { limited: item.status.includes('limited') }]}>{item.status}</span>
+    </a>
+  ))}
+</div>

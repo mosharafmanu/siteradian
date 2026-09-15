@@ -1,0 +1,93 @@
+---
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { siteConfig, withBase } from '@/data/site';
+import '@/styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const {
+  title = `${siteConfig.name} — ${siteConfig.descriptor}`,
+  description = siteConfig.explanation,
+  image = withBase('/social-card.png'),
+  noindex = false,
+  schema,
+} = Astro.props;
+const pageTitle = title === siteConfig.name ? `${title} — ${siteConfig.descriptor}` : title;
+const canonical = new URL(Astro.url.pathname, siteConfig.origin).toString();
+const socialImage = new URL(image, siteConfig.origin).toString();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#14213d" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={withBase('/brand/siteradian-mark.svg')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    {schema && <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header />
+    <main id="main-content" data-pagefind-body>
+      <slot />
+    </main>
+    <Footer />
+    <script is:inline>
+      const menuButton = document.querySelector('[data-menu-button]');
+      const menu = document.querySelector('[data-menu]');
+      menuButton?.addEventListener('click', () => {
+        const open = menuButton.getAttribute('aria-expanded') === 'true';
+        menuButton.setAttribute('aria-expanded', String(!open));
+        menu?.toggleAttribute('data-open', !open);
+      });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && menuButton?.getAttribute('aria-expanded') === 'true') {
+          menuButton.setAttribute('aria-expanded', 'false');
+          menu?.removeAttribute('data-open');
+          menuButton.focus();
+        }
+      });
+      document.querySelectorAll('pre').forEach(pre => {
+        if (pre.querySelector('.copy-code')) return;
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'copy-code';
+        button.textContent = 'Copy';
+        button.setAttribute('aria-label', 'Copy code');
+        button.addEventListener('click', async () => {
+          const code = pre.querySelector('code')?.textContent || '';
+          try {
+            await navigator.clipboard.writeText(code);
+            button.textContent = 'Copied';
+            window.setTimeout(() => button.textContent = 'Copy', 1600);
+          } catch {
+            button.textContent = 'Select and copy';
+          }
+        });
+        pre.append(button);
+      });
+    </script>
+  </body>
+</html>

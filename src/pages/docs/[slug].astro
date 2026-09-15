@@ -1,0 +1,15 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import { docs, type DocPage } from '@/data/docs';
+
+export function getStaticPaths() {
+  return docs.map(doc => ({ params: { slug: doc.slug }, props: { doc } }));
+}
+interface Props { doc: DocPage }
+const { doc } = Astro.props;
+---
+<DocsLayout title={doc.title} description={doc.description} updated={doc.updated}>
+  <div class="docs-content">
+    {doc.sections.map(section => <section><h2>{section.title}</h2><div set:html={section.body} /></section>)}
+  </div>
+</DocsLayout>

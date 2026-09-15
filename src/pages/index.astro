@@ -1,0 +1,143 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { integrations } from '@/data/integrations';
+import { siteConfig, withBase } from '@/data/site';
+
+const flow = [
+  ['AI assistant', 'You work in the assistant you already use.'],
+  ['Scope', 'A token limits what the assistant may reach.'],
+  ['Approval', 'Consequential changes wait for a person.'],
+  ['Safe execution', 'Validated operations run inside WordPress.'],
+  ['Audit & rollback', 'See what happened and undo supported work.'],
+];
+const capabilities = [
+  ['⌁', 'Scoped access', 'Read-only or full access, narrowed further by 23 capability permissions.'],
+  ['✓', 'Approval controls', 'Standard and Strict modes put human review in front of higher-impact work.'],
+  ['↺', 'Audit & rollback', 'Structured history, before-and-after context, and drift-aware undo where supported.'],
+  ['◇', 'Protection modes', 'A clear operating posture for production, regulated workflows, or local development.'],
+  ['⌕', 'Diagnostics', 'Let an assistant inspect site health and environment details without changing content.'],
+  ['W', 'WordPress operations', 'Govern content, media, users, settings, themes, plugins, menus, forms, and more.'],
+  ['WC', 'WooCommerce operations', 'Work with products, stock, pricing, orders, customers, coupons, and variations.'],
+  ['→', 'Agent-ready foundation', 'A shared MCP surface for today’s assistants and future governed workflows.'],
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: siteConfig.name,
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'WordPress 6.4 or newer',
+  softwareVersion: siteConfig.version,
+  description: siteConfig.explanation,
+  url: siteConfig.origin + withBase('/'),
+};
+---
+<BaseLayout schema={schema}>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <img class="hero-lockup" src={withBase('/brand/siteradian-logo.svg')} width="224" height="53" alt="SiteRadian" />
+        <p class="eyebrow">{siteConfig.descriptor}</p>
+        <h1>{siteConfig.proposition}</h1>
+        <p class="hero-lede">{siteConfig.explanation}</p>
+        <div class="button-row">
+          <a class="button" href="#availability">Get SiteRadian</a>
+          <a class="button secondary" href={withBase('/how-it-works/')}>See how it works</a>
+        </div>
+        <p class="availability-note">Submitted to WordPress.org · Review pending</p>
+      </div>
+      <div class="command-card" aria-label="SiteRadian governed operation flow">
+        <p class="command-label"><span>Governed operation</span><span class="live-dot">Protected</span></p>
+        <ol class="flow-list">
+          {flow.map(([title, text], index) => <li><span class="node"><span>{index + 1}</span></span><span><strong>{title}</strong><small>{text}</small></span></li>)}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="logo-strip" aria-labelledby="assistants-heading">
+    <div class="container">
+      <p id="assistants-heading" class="logo-strip-label">Works with the assistants and coding tools you already use</p>
+      <div class="logo-row">
+        {integrations.map(item => <a class="logo-chip" href={withBase('/integrations/' + item.slug + '/')}><img src={withBase('/integrations/' + item.icon)} width="21" height="21" alt="" /><span>{item.name.replace(' in VS Code', '')}</span></a>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="section-header"><div><p class="eyebrow">How it works</p><h2>Authority with boundaries.</h2><p>SiteRadian sits between an assistant and WordPress, applying permission, risk, and approval decisions before an operation reaches your site.</p></div><a class="text-link" href={withBase('/how-it-works/')}>Explore the control model</a></div>
+      <div class="flow-grid">
+        {flow.map(([title, text]) => <article class="flow-card"><span class="flow-number" aria-hidden="true"></span><h3>{title}</h3><p>{text}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">Why governance matters</p>
+        <h2 class="content-heading">An assistant can move quickly. Your controls should move first.</h2>
+        <p>Administrator credentials give broad access and little operational context. SiteRadian replaces that shortcut with purpose-built access, predictable approval, and a record of each governed action.</p>
+        <ul class="trust-list"><li>Begin with a read-only inspection.</li><li>Grant only the capabilities the work needs.</li><li>Keep higher-impact actions behind human approval.</li><li>Review and reverse supported changes from WordPress.</li></ul>
+      </div>
+      <div class="boundary-card">
+        <p class="eyebrow">SiteRadian is the control layer</p>
+        <h3>Not another AI model.</h3>
+        <ul><li><strong>Not an AI provider.</strong> Use the assistant you already have.</li><li><strong>Not unrestricted remote control.</strong> Scope and capability checks come first.</li><li><strong>Not a backup product.</strong> Rollback targets supported individual changes.</li><li><strong>Not autonomous.</strong> SiteRadian never initiates work on its own.</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="capabilities">
+    <div class="container">
+      <div class="section-header"><div><p class="eyebrow">Core capabilities</p><h2>Operational reach, measured precisely.</h2><p>One governed interface covers everyday WordPress work and advanced operational tasks without treating every request as equally safe.</p></div></div>
+      <div class="capability-grid">
+        {capabilities.map(([mark, title, text]) => <article class="capability-card"><span class="mini-mark" aria-hidden="true">{mark}</span><h3>{title}</h3><p>{text}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <div class="section-header"><div><p class="eyebrow">The real product</p><h2>Control stays inside WordPress.</h2><p>No fabricated dashboards. These are the actual SiteRadian 1.0.0 screens used to connect assistants, review requests, and understand changes.</p></div><a class="text-link" href={withBase('/docs/getting-started/')}>Start with the guided setup</a></div>
+      <div class="screenshot-grid">
+        <figure class="screenshot-frame">
+          <div class="screenshot-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <picture><source srcset={withBase('/screenshots/siteradian-1.webp')} type="image/webp" /><img src={withBase('/screenshots/siteradian-1.png')} width="1440" height="1000" loading="lazy" alt="SiteRadian Home dashboard showing protection status, governed workflow, operational status cards, and the three-step getting-started path" /></picture>
+          <figcaption class="screenshot-caption">Home brings protection, connections, approvals, changes, and the next setup action into one command center.</figcaption>
+        </figure>
+        <div class="stack">
+          <figure class="screenshot-frame"><div class="screenshot-bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source srcset={withBase('/screenshots/siteradian-2.webp')} type="image/webp" /><img src={withBase('/screenshots/siteradian-2.png')} width="1440" height="1000" loading="lazy" alt="SiteRadian Connections screen with supported assistant cards" /></picture><figcaption class="screenshot-caption">Choose the exact assistant or coding client you use.</figcaption></figure>
+          <figure class="screenshot-frame"><div class="screenshot-bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source srcset={withBase('/screenshots/siteradian-4.webp')} type="image/webp" /><img src={withBase('/screenshots/siteradian-4.png')} width="1440" height="1000" loading="lazy" alt="SiteRadian Approvals screen showing governed requests awaiting a person" /></picture><figcaption class="screenshot-caption">Review risk and requested changes before execution.</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div class="boundary-card"><p class="eyebrow">Trust by design</p><h3>Four controls before the database.</h3><ul><li>Token scope</li><li>Capability permission</li><li>Protection and human approval</li><li>Destructive-operation guard</li></ul></div>
+      <div><p class="eyebrow">Security</p><h2 class="content-heading">Your site. Your access. Your decision.</h2><p>Tokens are revealed once and stored as hashes. Scope is enforced before an operation runs. Audit context is secret-redacted, and SiteRadian sends no telemetry or analytics.</p><ul class="trust-list"><li>Revocable, expiring credentials</li><li>Human-only approval decisions</li><li>Protected local audit and rollback storage</li><li>No external service contacted by default</li></ul><div class="button-row"><a class="button secondary" href={withBase('/security/')}>Read the security model</a></div></div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <div class="section-header"><div><p class="eyebrow">Built for responsible operators</p><h2>Useful from the first site to the next workflow.</h2></div></div>
+      <div class="audience-grid"><article class="audience-card"><h3>Site owners</h3><p>Get help inspecting and maintaining WordPress without handing an assistant unlimited authority.</p></article><article class="audience-card"><h3>Agencies</h3><p>Use repeatable access and approval boundaries while preserving a clear record for each site.</p></article><article class="audience-card"><h3>Technical teams</h3><p>Expose a discoverable operations surface to agents while keeping WordPress governance in the loop.</p></article></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header"><div><p class="eyebrow">Documentation</p><h2>From first connection to safe rollback.</h2><p>Beginner-first tutorials explain the product in plain language, with exact client-specific notes where configuration details matter.</p></div><a class="text-link" href={withBase('/docs/')}>Browse all documentation</a></div>
+      <div class="preview-grid"><article class="preview-card"><h3>Getting started</h3><p>Install, create access, connect an assistant, and complete a read-only first task.</p><a class="text-link" href={withBase('/docs/getting-started/')}>Follow the guide</a></article><article class="preview-card"><h3>Integration tutorials</h3><p>Dedicated setup and troubleshooting for all 12 supported clients.</p><a class="text-link" href={withBase('/integrations/')}>Choose your client</a></article><article class="preview-card"><h3>Protection & approvals</h3><p>Understand when work runs, when it waits, and what only a person can decide.</p><a class="text-link" href={withBase('/docs/protection/')}>Understand protection</a></article></div>
+    </div>
+  </section>
+
+  <section class="section" id="availability">
+    <div class="container availability">
+      <div class="availability-inner"><div><p class="eyebrow">SiteRadian 1.0.0</p><h2>Submitted to WordPress.org.</h2><p>The first public release is awaiting directory review. The download link will be enabled only after the requested <code>siteradian</code> listing is live.</p><div class="button-row"><a class="button" aria-disabled="true" href="#availability">WordPress.org approval pending</a><a class="button secondary" href={withBase('/docs/getting-started/')}>Prepare with the docs</a></div></div><div class="status-box"><strong>Current status</strong><span>Submission received · Directory review pending</span></div></div>
+    </div>
+  </section>
+</BaseLayout>

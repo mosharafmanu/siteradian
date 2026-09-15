@@ -1,0 +1,29 @@
+---
+import { docs, docCategories } from '@/data/docs';
+import { integrations } from '@/data/integrations';
+import { withBase } from '@/data/site';
+interface Props { section?: 'docs' | 'integrations'; }
+const { section = 'docs' } = Astro.props;
+const current = Astro.url.pathname;
+---
+<nav class="docs-nav" aria-label={section === 'docs' ? 'Documentation pages' : 'Integration tutorials'}>
+  {section === 'docs' ? (
+    <>
+      <a class="docs-overview" href={withBase('/docs/')} aria-current={current === withBase('/docs/') ? 'page' : undefined}>Documentation home</a>
+      {docCategories.map(category => (
+        <section>
+          <h2>{category}</h2>
+          {docs.filter(doc => doc.category === category).map(doc => <a href={withBase(`/docs/${doc.slug}/`)} aria-current={current.endsWith(`/docs/${doc.slug}/`) ? 'page' : undefined}>{doc.title}</a>)}
+        </section>
+      ))}
+    </>
+  ) : (
+    <>
+      <a class="docs-overview" href={withBase('/integrations/')} aria-current={current === withBase('/integrations/') ? 'page' : undefined}>All integrations</a>
+      <section>
+        <h2>Client tutorials</h2>
+        {integrations.map(item => <a href={withBase(`/integrations/${item.slug}/`)} aria-current={current.endsWith(`/integrations/${item.slug}/`) ? 'page' : undefined}>{item.name}</a>)}
+      </section>
+    </>
+  )}
+</nav>

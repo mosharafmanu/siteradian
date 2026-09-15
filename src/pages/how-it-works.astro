@@ -1,0 +1,23 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { withBase } from '@/data/site';
+const stages = [
+  ['AI assistant', 'Claude, Codex, ChatGPT, Gemini, Cursor, or another supported MCP client asks SiteRadian to perform a WordPress operation.'],
+  ['Scoped access', 'The bearer token must be active, unexpired, and allowed to reach the requested class of work. Read-only is enforced before dispatch.'],
+  ['Capability check', 'The token must hold the permission mapped to the operation—content, media, WooCommerce, settings, plugins, history, and more.'],
+  ['Approval & governance', 'SiteRadian evaluates the operation’s actual action and risk against Standard, Strict, or Development protection.'],
+  ['Safe execution', 'Validated parameters reach a bounded WordPress operation. Permanent deletion adds a separate confirmation guard.'],
+];
+---
+<BaseLayout title="How SiteRadian works — Governed AI operations for WordPress" description="See how SiteRadian applies scoped access, capabilities, approval, safe execution, audit trails, and rollback to AI-assisted WordPress operations.">
+  <header class="page-hero"><div class="container narrow"><p class="eyebrow">How it works</p><h1>Control before execution.</h1><p class="lede">SiteRadian does not replace your assistant or WordPress permissions. It adds a purpose-built governance path between them.</p></div></header>
+  <section class="section"><div class="container"><div class="flow-grid">{stages.map(([title,text]) => <article class="flow-card"><span class="flow-number" aria-hidden="true"></span><h3>{title}</h3><p>{text}</p></article>)}</div></div></section>
+  <section class="section soft"><div class="container split"><div><p class="eyebrow">The decision path</p><h2 class="content-heading">Permission and approval answer different questions.</h2><p><strong>Scope and capabilities</strong> decide whether a token is allowed to ask. <strong>Protection mode</strong> decides whether an allowed change must wait for a person. Neither one cancels the other.</p><pre><code>assistant request
+  → token scope
+  → capability
+  → risk + protection mode
+  → human approval when required
+  → execution
+  → audit + rollback metadata</code></pre></div><div class="boundary-card"><p class="eyebrow">Default posture</p><h3>Standard protection</h3><ul><li><strong>Reads:</strong> immediate</li><li><strong>Low-risk changes:</strong> immediate</li><li><strong>Medium, high, critical:</strong> human approval</li><li><strong>Permanent deletion:</strong> explicit confirmation guard</li></ul></div></div></section>
+  <section class="section"><div class="container split"><div class="screenshot-frame"><div class="screenshot-bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source srcset={withBase('/screenshots/siteradian-5.webp')} type="image/webp"/><img src={withBase('/screenshots/siteradian-5.png')} width="1440" height="1000" loading="lazy" alt="SiteRadian Changes screen showing audit history and rollback controls"/></picture></div><div><p class="eyebrow">After execution</p><h2 class="content-heading">A result you can inspect.</h2><p>Changes records who asked, what ran, when it happened, and whether undo is available. Drift-aware rollback restores only fields that still match the operation’s result, protecting newer edits.</p><div class="button-row"><a class="button" href={withBase('/docs/getting-started/')}>Start safely</a><a class="button secondary" href={withBase('/security/')}>Security details</a></div></div></div></section>
+</BaseLayout>

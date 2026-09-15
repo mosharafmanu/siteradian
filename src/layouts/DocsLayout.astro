@@ -1,0 +1,27 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import DocsNav from '@/components/DocsNav.astro';
+
+interface Props { title: string; description: string; section?: 'docs' | 'integrations'; updated?: string; }
+const { title, description, section = 'docs', updated } = Astro.props;
+---
+<BaseLayout title={`${title} — SiteRadian`} description={description}>
+  <div class="docs-shell container">
+    <aside class="docs-sidebar" aria-label="Documentation navigation">
+      <DocsNav section={section} />
+    </aside>
+    <details class="docs-mobile-nav">
+      <summary>Browse {section === 'docs' ? 'documentation' : 'integrations'}</summary>
+      <DocsNav section={section} />
+    </details>
+    <article class="docs-article">
+      <header class="docs-header">
+        <p class="eyebrow">{section === 'docs' ? 'Documentation' : 'Integration guide'}</p>
+        <h1>{title}</h1>
+        <p class="docs-lede">{description}</p>
+        {updated && <p class="updated">Reviewed for SiteRadian 1.0.0 · {updated}</p>}
+      </header>
+      <slot />
+    </article>
+  </div>
+</BaseLayout>

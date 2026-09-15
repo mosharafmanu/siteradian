@@ -1,0 +1,26 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { withBase } from '@/data/site';
+---
+<BaseLayout title="Search SiteRadian documentation" description="Search SiteRadian documentation and integration tutorials." noindex>
+  <header class="page-hero"><div class="container search-shell"><p class="eyebrow">Documentation search</p><h1>Find the exact setup or control.</h1><p class="lede">Private, static search runs entirely in your browser. No query is sent to SiteRadian or a search provider.</p></div></header>
+  <section class="section"><div class="container search-shell"><div id="search" aria-live="polite"><noscript>Search needs JavaScript. Browse the <a href={withBase('/docs/')}>documentation index</a> instead.</noscript></div></div></section>
+  <link href={withBase('/pagefind/pagefind-ui.css')} rel="stylesheet" />
+  <script is:inline define:vars={{ bundle: withBase('/pagefind/pagefind-ui.js'), bundlePath: withBase('/pagefind/'), baseUrl: withBase('/'), docsPath: withBase('/docs/') }}>
+    const loadSearch = async () => {
+      try {
+        await import(bundle);
+        new window.PagefindUI({ element: '#search', showSubResults: true, showImages: false, resetStyles: false, bundlePath, baseUrl });
+      } catch {
+        const message = document.createElement('p');
+        message.append('Search is unavailable in local development until the production index is built. Browse ');
+        const link = document.createElement('a');
+        link.href = docsPath;
+        link.textContent = 'all documentation';
+        message.append(link, '.');
+        document.querySelector('#search').replaceChildren(message);
+      }
+    };
+    loadSearch();
+  </script>
+</BaseLayout>

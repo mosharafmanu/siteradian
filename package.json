@@ -1,0 +1,27 @@
+{
+  "name": "siteradian-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "check": "astro check",
+    "build": "astro check && astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "verify": "node scripts/verify-site.mjs",
+    "qa:browser": "node scripts/browser-qa.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
+    "astro": "^7.3.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@playwright/test": "1.63.0",
+    "pagefind": "^1.5.2",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

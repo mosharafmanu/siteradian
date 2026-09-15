@@ -1,0 +1,7 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { withBase } from '@/data/site';
+---
+<BaseLayout title="Page not found — SiteRadian" description="The requested SiteRadian page could not be found." noindex>
+  <header class="page-hero"><div class="container narrow"><p class="eyebrow">404 · Outside the radius</p><h1>This page is not in scope.</h1><p class="lede">The address may have moved, or the link may be incomplete. Return to a known SiteRadian surface.</p><div class="button-row"><a class="button" href={withBase('/')}>Home</a><a class="button secondary" href={withBase('/docs/')}>Documentation</a><a class="button secondary" href={withBase('/integrations/')}>Integrations</a><a class="button secondary" href="https://github.com/mosharafmanu/siteradian">GitHub</a></div></div></header>
+</BaseLayout>

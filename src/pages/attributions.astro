@@ -1,0 +1,18 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+const items = [
+  ['OpenAI / Codex', 'Official OpenAI developer icon and brand guidance.'],
+  ['Claude', 'Official Claude product icon.'],
+  ['Google Antigravity and Gemini', 'Official product identities from their respective Google product surfaces.'],
+  ['Cursor', 'Official Cursor product icon.'],
+  ['Continue', 'Continue project icon, distributed from the Apache-2.0-licensed Continue repository.'],
+  ['GitHub Copilot', 'Microsoft VS Code Codicons Copilot mark, CC BY 4.0; attribution to Microsoft Corporation and the VS Code Codicons project.'],
+  ['OpenCode', 'OpenCode project icon from its MIT-licensed repository.'],
+  ['Command Code', 'Official Command Code project symbol.'],
+  ['Muse Code', 'A neutral terminal glyph created for SiteRadian is used instead of a fabricated Meta/Muse product logo.'],
+];
+---
+<BaseLayout title="Third-party attributions — SiteRadian" description="Sources and trademark context for third-party integration identities shown by SiteRadian.">
+  <header class="page-hero"><div class="container narrow"><p class="eyebrow">Attributions</p><h1>Integration marks identify products.</h1><p class="lede">They are used only as restrained navigation aids. Their presence does not imply sponsorship, partnership, or endorsement.</p></div></header>
+  <section class="section"><div class="container search-shell docs-content"><section><h2>Brand assets</h2><ul>{items.map(([name,note]) => <li><strong>{name}:</strong> {note}</li>)}</ul><p>All product names and logos remain the property of their respective owners.</p></section><section><h2>SiteRadian identity</h2><p>The SiteRadian mark and wordmark are not assembled from third-party logos and do not use the WordPress mark as a product identity.</p></section></div></section>
+</BaseLayout>
