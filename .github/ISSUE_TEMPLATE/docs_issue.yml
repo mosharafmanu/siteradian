@@ -1,0 +1,32 @@
+name: Documentation issue
+description: Report unclear, incorrect, missing, or outdated SiteRadian documentation.
+title: "[Docs]: "
+labels: [documentation, needs-triage]
+assignees: []
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Affected page or URL
+      placeholder: https://mosharafmanu.github.io/siteradian/docs/…
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: What is unclear or incorrect?
+      description: Explain what a reader cannot understand, follow, or trust.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Suggested correction (optional)
+      description: Share corrected wording, steps, or a reliable reference if you know one.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Sensitive-data check
+      options:
+        - label: I have removed credentials, private site data, customer information, and other secrets.
+          required: true

@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '@/layouts/DocsLayout.astro';
+import StillNeedHelp from '@/components/StillNeedHelp.astro';
 import { docs, type DocPage } from '@/data/docs';
 
 export function getStaticPaths() {
@@ -7,9 +8,11 @@ export function getStaticPaths() {
 }
 interface Props { doc: DocPage }
 const { doc } = Astro.props;
+const showHelp = ['getting-started', 'installation', 'first-connection', 'access-tokens', 'troubleshooting'].includes(doc.slug);
 ---
 <DocsLayout title={doc.title} description={doc.description} updated={doc.updated}>
   <div class="docs-content">
     {doc.sections.map(section => <section><h2>{section.title}</h2><div set:html={section.body} /></section>)}
+    {showHelp && <StillNeedHelp />}
   </div>
 </DocsLayout>

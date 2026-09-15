@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '@/layouts/DocsLayout.astro';
+import StillNeedHelp from '@/components/StillNeedHelp.astro';
 import { integrations, type Integration } from '@/data/integrations';
 import { withBase } from '@/data/site';
 
@@ -22,5 +23,6 @@ const { integration } = Astro.props;
     <section><h2>Troubleshooting</h2><ul>{integration.troubleshooting.map(item => <li>{item}</li>)}</ul><p>For shared connection checks, see <a href={withBase('/docs/troubleshooting/')}>SiteRadian troubleshooting</a>.</p></section>
     <section><h2>Security notes</h2><ul>{integration.security.map(item => <li>{item}</li>)}</ul><p>Start Read-only, grant the narrowest required capabilities, and revoke credentials that are no longer needed.</p></section>
     <section><h2>Next step</h2><p>Once the read-only check succeeds, learn how <a href={withBase('/docs/protection/')}>protection modes</a> and <a href={withBase('/docs/approvals/')}>human approval</a> govern changes.</p></section>
+    <StillNeedHelp client={integration.name} />
   </div>
 </DocsLayout>

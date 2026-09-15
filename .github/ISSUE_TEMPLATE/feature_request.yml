@@ -1,0 +1,40 @@
+name: Feature request
+description: Suggest an improvement by starting with the user problem.
+title: "[Feature]: "
+labels: [enhancement, needs-triage]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: Tell us about the problem and desired outcome. You do not need to design the implementation.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What are you trying to accomplish, and what is difficult today?
+    validations:
+      required: true
+  - type: textarea
+    id: beneficiaries
+    attributes:
+      label: Who would benefit?
+      description: Describe the users, sites, teams, or workflows affected.
+    validations:
+      required: true
+  - type: textarea
+    id: improvement
+    attributes:
+      label: Proposed improvement
+      description: What outcome would make the experience better?
+    validations:
+      required: true
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Current workaround
+      description: How do you handle this today, if at all?
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add sanitized examples or references that clarify the request.

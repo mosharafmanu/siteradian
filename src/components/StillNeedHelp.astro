@@ -1,0 +1,21 @@
+---
+import { supportLinks } from '@/data/site';
+
+interface Props {
+  client?: string;
+}
+
+const { client } = Astro.props;
+const heading = client ? `Still having trouble connecting ${client}?` : 'Still need help?';
+---
+<aside class="still-need-help" aria-labelledby={`still-need-help-${client ? 'integration' : 'docs'}`}>
+  <div>
+    <p class="eyebrow">A clear next step</p>
+    <h2 id={`still-need-help-${client ? 'integration' : 'docs'}`}>{heading}</h2>
+    <p>Check the shared troubleshooting guide, or use the Support Center to find the right place for your question.</p>
+  </div>
+  <div class="still-help-links">
+    <a class="button secondary" href={supportLinks.troubleshooting}>Troubleshooting</a>
+    <a class="button" href={supportLinks.center}>Support Center</a>
+  </div>
+</aside>

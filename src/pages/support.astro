@@ -1,0 +1,110 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { supportLinks, wordpressSupportCta, withBase } from '@/data/site';
+
+const routes = [
+  {
+    code: 'DOC',
+    eyebrow: 'Documentation',
+    title: 'Learn SiteRadian',
+    description: 'Installation, connections, scoped access, approvals, rollback, and protection.',
+    label: 'Browse documentation',
+    href: supportLinks.documentation,
+  },
+  {
+    code: 'FIX',
+    eyebrow: 'Troubleshooting',
+    title: 'Fix a problem',
+    description: 'Resolve connection, token, configuration, permission, and assistant-specific issues.',
+    label: 'Troubleshoot SiteRadian',
+    href: supportLinks.troubleshooting,
+  },
+  {
+    code: 'WP',
+    eyebrow: 'Community support',
+    title: 'Ask a usage question',
+    description: wordpressSupportCta.note,
+    label: wordpressSupportCta.label,
+    href: wordpressSupportCta.href,
+    disabled: wordpressSupportCta.disabled,
+    id: 'community-support',
+  },
+  {
+    code: 'BUG',
+    eyebrow: 'Bug report',
+    title: 'Report reproducible behavior',
+    description: 'Found behavior that appears incorrect? A structured report helps us investigate faster.',
+    label: 'Report on GitHub',
+    href: supportLinks.bug,
+    external: true,
+  },
+  {
+    code: 'IDEA',
+    eyebrow: 'Feature request',
+    title: 'Suggest an improvement',
+    description: 'Share the problem, who it affects, and the outcome that would make SiteRadian better.',
+    label: 'Request a feature',
+    href: supportLinks.feature,
+    external: true,
+  },
+  {
+    code: 'SEC',
+    eyebrow: 'Security',
+    title: 'Report a vulnerability',
+    description: 'Security vulnerabilities must be reported privately. Never put exploit details or secrets in a public issue.',
+    label: 'Report privately',
+    href: supportLinks.privateSecurityReport,
+    external: true,
+    security: true,
+  },
+];
+---
+<BaseLayout
+  title="SiteRadian Support Center — WordPress AI help"
+  description="Find SiteRadian documentation, connection troubleshooting, community support status, structured bug and feature forms, and private vulnerability reporting."
+>
+  <header class="page-hero support-hero">
+    <div class="container narrow">
+      <p class="eyebrow">Support</p>
+      <h1>How can we help?</h1>
+      <p class="lede">Find setup guidance, troubleshoot a connection, report a bug, or choose the right place for your question.</p>
+    </div>
+  </header>
+
+  <section class="section support-section">
+    <div class="container">
+      <div class="support-route-grid">
+        {routes.map(route => (
+          <article class:list={['support-route-card', { 'security-route': route.security }]} id={route.id}>
+            <div class="support-route-top">
+              <span class="support-route-mark" aria-hidden="true">{route.code}</span>
+              <p class="eyebrow">{route.eyebrow}</p>
+            </div>
+            <h2>{route.title}</h2>
+            <p>{route.description}</p>
+            <a
+              class:list={['support-route-link', { pending: route.disabled }]}
+              href={route.href}
+              aria-disabled={route.disabled ? 'true' : undefined}
+              target={route.external ? '_blank' : undefined}
+              rel={route.external ? 'noreferrer' : undefined}
+            >{route.label}<span aria-hidden="true">{route.external ? ' ↗' : ' →'}</span></a>
+          </article>
+        ))}
+      </div>
+
+      <aside class="support-safety-note" aria-labelledby="support-before-reporting">
+        <div>
+          <p class="eyebrow">Before reporting</p>
+          <h2 id="support-before-reporting">Help us protect your site and your time.</h2>
+        </div>
+        <ol>
+          <li><strong>Search first.</strong> Known connection and token failures are covered in troubleshooting.</li>
+          <li><strong>Reproduce safely.</strong> Include the smallest repeatable sequence and relevant versions.</li>
+          <li><strong>Redact private data.</strong> Never post tokens, keys, passwords, cookies, customer data, or private URLs.</li>
+        </ol>
+        <p><strong>Found a vulnerability?</strong> Skip the public issue tracker and <a href={supportLinks.privateSecurityReport}>send a private report</a>. To understand the product’s control model, read <a href={withBase('/security/')}>SiteRadian security</a>.</p>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

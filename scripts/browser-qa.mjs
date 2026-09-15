@@ -33,6 +33,7 @@ for (const width of widths) {
     problems.push(`${width}px home: locked value proposition missing`);
   }
   if (await page.locator('.logo-chip').count() !== 12) problems.push(`${width}px home: expected 12 assistant links`);
+  if (width > 900 && !(await page.getByRole('link', { name: 'Support', exact: true }).first().isVisible())) problems.push(`${width}px home: Support navigation is hidden`);
 
   if (width <= 900) {
     const menuButton = page.getByRole('button', { name: 'Open navigation' });
@@ -60,6 +61,22 @@ for (const width of widths) {
     if (!['Copied', 'Select and copy'].includes(await copy.innerText())) problems.push(`${width}px docs: copy control did not respond`);
   }
 
+  await page.goto(`${baseUrl}/support/`, { waitUntil: 'networkidle' });
+  await auditPage(page, `${width}px support`);
+  if (await page.locator('.support-route-card').count() !== 6) problems.push(`${width}px support: expected 6 routing cards`);
+  const firstSupportRoute = page.locator('.support-route-link').first();
+  await firstSupportRoute.focus();
+  if (!(await firstSupportRoute.evaluate(element => element.matches(':focus-visible')))) problems.push(`${width}px support: route link has no focus-visible state`);
+  if (!(await page.getByRole('link', { name: /Report privately/ }).isVisible())) problems.push(`${width}px support: private security route is hidden`);
+  const privateHref = await page.getByRole('link', { name: /Report privately/ }).getAttribute('href');
+  if (!privateHref?.endsWith('/security/advisories/new')) problems.push(`${width}px support: private security route is incorrect`);
+  const pendingSupport = page.locator('#community-support').getByRole('link', { name: /WordPress.org approval pending/ });
+  if (!(await pendingSupport.isVisible()) || (await pendingSupport.getAttribute('aria-disabled')) !== 'true') problems.push(`${width}px support: pending WordPress.org state is incorrect`);
+
+  await page.goto(`${baseUrl}/integrations/codex-cli/`, { waitUntil: 'networkidle' });
+  await auditPage(page, `${width}px integration support`);
+  if (!(await page.getByRole('heading', { name: 'Still having trouble connecting Codex CLI?' }).isVisible())) problems.push(`${width}px integration: contextual support route is missing`);
+
   await context.close();
 }
 
@@ -84,6 +101,11 @@ else {
   ).catch(() => {});
   const technicalResults = await page.locator('.pagefind-ui__result-link').allTextContents();
   if (!technicalResults.some(title => title.includes('Scoped access'))) problems.push('search: compatibility error code is not discoverable');
+  for (const query of ['token missing', 'Codex not connecting', 'permission denied', 'report bug', 'security vulnerability']) {
+    await search.fill(query);
+    await page.waitForFunction(() => document.querySelectorAll('.pagefind-ui__result').length > 0, undefined, { timeout: 10000 }).catch(() => {});
+    if (await page.locator('.pagefind-ui__result').count() === 0) problems.push(`search: no results for ${query}`);
+  }
 }
 await page.goto(`${baseUrl}/404.html`, { waitUntil: 'networkidle' });
 if ((await page.locator('main h1').innerText()).trim() !== 'This page is not in scope.') problems.push('404: branded error page missing');
@@ -98,4 +120,4 @@ console.log(`Browser QA passed at ${widths.join(', ')}px.`);
 console.log('Horizontal overflow: 0');
 console.log('Console/page errors: 0');
 console.log('Failed assets/HTTP responses: 0');
-console.log('Mobile navigation, docs navigation, code copy, public and compatibility-term search, 404, and all 12 integrations: PASS');
+console.log('Mobile navigation, docs navigation, support routing, code copy, support/compatibility search, 404, and all 12 integrations: PASS');

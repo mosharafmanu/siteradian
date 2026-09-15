@@ -1,5 +1,5 @@
 ---
-import { siteConfig, withBase } from '@/data/site';
+import { siteConfig, supportLinks, withBase } from '@/data/site';
 ---
 <footer class="site-footer">
   <div class="container footer-grid">
@@ -16,22 +16,22 @@ import { siteConfig, withBase } from '@/data/site';
       <a href={withBase('/faq/')}>FAQ</a>
     </div>
     <div>
-      <h2>Documentation</h2>
+      <h2>Resources</h2>
+      <a href={withBase('/docs/')}>Documentation</a>
       <a href={withBase('/docs/getting-started/')}>Getting started</a>
-      <a href={withBase('/docs/access-tokens/')}>Access tokens</a>
-      <a href={withBase('/docs/approvals/')}>Approvals</a>
-      <a href={withBase('/docs/troubleshooting/')}>Troubleshooting</a>
+      <a href={supportLinks.troubleshooting}>Troubleshooting</a>
+      <a href={supportLinks.center}>Support</a>
     </div>
     <div>
-      <h2>Company</h2>
+      <h2>Developers</h2>
       <a href={siteConfig.repository}>GitHub</a>
-      <a href={withBase('/privacy/')}>Privacy</a>
-      <a href={withBase('/terms/')}>Terms</a>
-      <a href={withBase('/attributions/')}>Attributions</a>
+      <a href={supportLinks.bug}>Report a bug</a>
+      <a href={supportLinks.feature}>Request a feature</a>
+      <a href={supportLinks.privateSecurityReport}>Report a vulnerability</a>
     </div>
   </div>
   <div class="container footer-bottom">
     <p>Product names and logos belong to their respective owners. SiteRadian is not affiliated with or endorsed by those vendors.</p>
-    <p>© {new Date().getFullYear()} SiteRadian.</p>
+    <p class="footer-legal"><a href={withBase('/privacy/')}>Privacy</a><a href={withBase('/terms/')}>Terms</a><a href={withBase('/attributions/')}>Attributions</a><span>© {new Date().getFullYear()} SiteRadian.</span></p>
   </div>
 </footer>

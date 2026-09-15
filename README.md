@@ -49,6 +49,17 @@ src/data/site.ts is the single source of truth. After the directory page is conf
 
 See [docs/CUSTOM-DOMAIN.md](docs/CUSTOM-DOMAIN.md). Do not add a CNAME file until DNS and ownership are ready.
 
+## Support
+
+- [Documentation](https://mosharafmanu.github.io/siteradian/docs/)
+- [Troubleshooting](https://mosharafmanu.github.io/siteradian/docs/troubleshooting/)
+- [Support Center](https://mosharafmanu.github.io/siteradian/support/)
+- [Report a bug](https://github.com/mosharafmanu/siteradian/issues/new?template=bug_report.yml)
+- [Request a feature](https://github.com/mosharafmanu/siteradian/issues/new?template=feature_request.yml)
+- [Report a vulnerability privately](https://github.com/mosharafmanu/siteradian/security/advisories/new)
+
+WordPress.org community support will be linked after the pending directory review is complete. Security reports do not belong in public issues.
+
 ## Contributions and security
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for content and code changes. Report vulnerabilities according to [SECURITY.md](SECURITY.md); do not publish credentials or exploit details in issues.

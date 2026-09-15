@@ -1,0 +1,115 @@
+name: Bug report
+description: Report reproducible SiteRadian website, documentation, or product behavior.
+title: "[Bug]: "
+labels: [bug, needs-triage]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve SiteRadian. Please share the smallest safe reproduction you can.
+
+        **Never paste access tokens, API keys, passwords, private keys, cookies, database credentials, or other secrets.** Redact private site URLs, customer data, and personal information where necessary.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What went wrong?
+      placeholder: Describe the issue clearly and concisely.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Provide a numbered sequence using sanitized values.
+      placeholder: |
+        1. Go to …
+        2. Choose …
+        3. Observe …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: input
+    id: siteradian-version
+    attributes:
+      label: SiteRadian version
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: wordpress-version
+    attributes:
+      label: WordPress version
+      placeholder: 7.1
+    validations:
+      required: true
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP version (if known)
+      placeholder: 8.3
+  - type: dropdown
+    id: integration
+    attributes:
+      label: Affected integration
+      options:
+        - Not integration-specific
+        - Codex in ChatGPT Desktop
+        - Codex CLI
+        - Claude Desktop
+        - Claude Code
+        - Antigravity CLI
+        - Gemini CLI
+        - Cursor
+        - Continue for VS Code
+        - GitHub Copilot in VS Code
+        - OpenCode
+        - Command Code
+        - Muse Code
+        - Other / unsure
+    validations:
+      required: true
+  - type: dropdown
+    id: protection-mode
+    attributes:
+      label: Protection mode (if relevant)
+      options:
+        - Not relevant / unsure
+        - Standard
+        - Strict
+        - Development
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version (for UI issues)
+      placeholder: Chrome 140, Firefox 142, Safari 19, or not applicable
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Sanitized logs or error codes
+      description: Paste only the smallest relevant excerpt after removing secrets and private data.
+      render: shell
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add anything else that materially helps reproduce the issue.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Sensitive-data check
+      options:
+        - label: I have removed credentials, tokens, customer data, personal information, and private details from this report.
+          required: true
