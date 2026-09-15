@@ -103,6 +103,13 @@ for (const required of ["'siteradian'", 'SITERADIAN_TOKEN', 'siteradian_REPLACE_
 for (const obsolete of ['WPCC_TOKEN', "mcp add 'wp-command-center'"]) {
   if (tutorialSource.includes(obsolete)) errors.push(`obsolete setup identity present: ${obsolete}`);
 }
+const { integrations } = await import(new URL('../src/data/integrations.ts', import.meta.url));
+if (integrations.length !== 12) errors.push(`expected 12 integration definitions, found ${integrations.length}`);
+for (const integration of integrations) {
+  if (!integration.code.includes('siteradian')) errors.push(`${integration.slug}: SiteRadian-native alias/config key missing`);
+  if (!integration.code.includes('siteradian_REPLACE_WITH_YOUR_TOKEN')) errors.push(`${integration.slug}: current token placeholder missing`);
+  if (/WPCC_TOKEN|["']wp-command-center["']/.test(integration.code)) errors.push(`${integration.slug}: obsolete new-user setup identity`);
+}
 
 if (errors.length) {
   console.error(errors.join('\n'));
@@ -112,4 +119,4 @@ console.log('Public terminology audit: PASS');
 console.log('Unexplained obsolete brand occurrences: 0');
 console.log('Required compatibility families allowlisted: REST namespace, API error codes');
 console.log('Reviewed compatibility occurrences: 4 authored, 15 rendered');
-console.log('Current setup identity verified: siteradian, SITERADIAN_TOKEN, siteradian_');
+console.log('Current setup identity verified across 12 tutorials: siteradian, SITERADIAN_TOKEN where applicable, siteradian_');
